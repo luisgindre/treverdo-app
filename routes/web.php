@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 /*
@@ -25,4 +26,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+    Route::get('/nuevoCliente', function () {
+        return view('nuevoCliente');
+    })->name('dashboard');
+    Route::post('/crearCliente', [ClienteController::class, 'agregarCliente'])->name('crearCliente');
 });
