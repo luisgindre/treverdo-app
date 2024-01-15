@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('current_team_id')->nullable();
             $table->foreignId('user_creator_id');
-            $table->string('first_name');
-            $table->string('second_name');
+            $table->string('name');
+            $table->string('last_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_update_user_id')->nullable();
