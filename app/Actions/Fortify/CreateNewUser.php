@@ -32,7 +32,7 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
             'last_name' => 'Gindre',
             'enabled' => TRUE,
-            'user_creator_id' => 1,
+            'user_id' => 1,
         ]);
     }
 }

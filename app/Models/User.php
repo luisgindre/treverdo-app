@@ -30,7 +30,7 @@ class User extends Authenticatable
         'name',
         'last_name',
         'email',
-        'user_creator_id',
+        'user_id',
         'enabled',
         'password',
     ];
@@ -81,10 +81,6 @@ class User extends Authenticatable
         return $this->BelongsTo(User::class);
     }
     
-    public function user_create(): BelongsTo
-    {
-        return $this->belongsTo(User::class,'user_creator_id');
-    }
 
 
 

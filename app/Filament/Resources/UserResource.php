@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Components\TextInput;
 
 
 class UserResource extends Resource
@@ -32,13 +33,13 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Toggle::make('enabled')
                 ->label('Hablilitado'),
-                Forms\Components\TextInput::make('last_name')
+                TextInput::make('last_name')
                     ->label('Apellido')
                     ->required()
                     ->maxLength(255),
@@ -55,7 +56,7 @@ class UserResource extends Resource
                 )
                 ->getOptionLabelFromRecordUsing(fn (Model $user) => "{$user->last_name}, {$user->name}")
                 ->searchable(['name', 'last_name']),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
@@ -76,7 +77,7 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('user_create.name')
+                Tables\Columns\TextColumn::make('user.name')
                     ->sortable()
                     ->label('Usuario Creador'),
                 Tables\Columns\TextColumn::make('company_position')

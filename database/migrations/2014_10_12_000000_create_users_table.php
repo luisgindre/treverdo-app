@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('current_team_id')->nullable();
-            $table->foreignId('user_creator_id');
+            $table->foreignId('user_id');
             $table->foreignId('company_id')->nullable();
             $table->string('name');
             $table->string('last_name');
