@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable
 {
@@ -66,8 +67,25 @@ class User extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return str_ends_with($this->email, '@yhotmail.com') && $this->hasVerifiedEmail();
+        return str_ends_with($this->email, '@hotmail.com') && $this->hasVerifiedEmail();
     }
 
-   
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+    
+    
+    public function user(): BelongsTo
+    {
+        return $this->BelongsTo(User::class);
+    }
+    
+    public function user_create(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_creator_id');
+    }
+
+
+
 }

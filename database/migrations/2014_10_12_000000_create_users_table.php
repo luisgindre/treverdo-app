@@ -15,9 +15,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('current_team_id')->nullable();
             $table->foreignId('user_creator_id');
+            $table->foreignId('company_id')->nullable();
             $table->string('name');
             $table->string('last_name');
-            $table->string('email')->unique();
+            $table->string('email')->unique();            
+            $table->string('company_position')->nullable();
+            $table->string('work_phone')->nullable();
+            $table->string('work_mail')->nullable();
+            $table->string('cell_phone')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('last_update_user_id')->nullable();
             $table->boolean('enabled');
