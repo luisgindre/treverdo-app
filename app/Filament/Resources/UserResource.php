@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Select;
+use Illuminate\Database\Eloquent\Model;
 
 
 class UserResource extends Resource
@@ -29,30 +32,34 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('enabled')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('enabled')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
+                Toggle::make('enabled')
+                ->label('Hablilitado'),
                 Forms\Components\TextInput::make('last_name')
+                    ->label('Apellido')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('last_name')
-                    ->required()
-                    ->maxLength(255),
+                Select::make('company_id')
+                    ->label('Empresa')
+                    ->relationship(name: 'company', titleAttribute: 'name')
+                    ->searchable()
+                    ->preload(),
+                Select::make('user_creator_id')
+                ->label('Usuario Creador')
+                ->relationship(
+                    name: 'user',
+                    modifyQueryUsing: fn (Builder $query) => $query->orderBy('name')->orderBy('last_name'),
+                )
+                ->getOptionLabelFromRecordUsing(fn (Model $user) => "{$user->last_name}, {$user->name}")
+                ->searchable(['name', 'last_name']),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required(),
-                Forms\Components\TextInput::make('profile_photo_path')
-                    ->maxLength(2048),
+                
             ]);
     }
 
@@ -60,12 +67,31 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('company.name')
+                    ->sortable()
+                    ->badge(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('user_create.name')
+                    ->sortable()
+                    ->label('Usuario Creador'),
+                Tables\Columns\TextColumn::make('company_position')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('work_phone')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('work_mail')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('cell_phone')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('last_update_user_id')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\IconColumn::make('enabled')
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
