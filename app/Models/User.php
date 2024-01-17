@@ -9,6 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class User extends Authenticatable
 {
@@ -62,5 +66,27 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-   
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@hotmail.com') && $this->hasVerifiedEmail();
+    }
+
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+    
+    
+    public function user(): BelongsTo
+    {
+        return $this->BelongsTo(User::class);
+    }
+    
+    public function user_create(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_creator_id');
+    }
+
+
+
 }
