@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable(); //usuario que lo crea
             $table->foreignId('last_update_user_id')->nullable(); //último usuario que lo modifica
             $table->unsignedbigInteger('dolibarr_thirdparty_id')->nullable();
-            $table->unsignedbigInteger('dni_cif_nie')->nullable();
+            $table->string('dni_cif_nie')->nullable();
             $table->string('name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('phone')->nullable();
