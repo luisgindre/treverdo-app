@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable(); //usuario que lo crea
+            $table->foreignId('last_update_user_id')->nullable(); //último usuario que lo modifica
             $table->unsignedbigInteger('dolibarr_thirdparty_id')->nullable();
             $table->unsignedbigInteger('dni_cif_nie')->nullable();
             $table->string('name')->nullable();

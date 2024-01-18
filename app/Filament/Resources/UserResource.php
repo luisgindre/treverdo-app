@@ -60,6 +60,10 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
+                Select::make('role_id')
+                    ->multiple()
+                    ->relationship(name: 'roles', titleAttribute: 'name')
+                    ->preload(),
                 
             ]);
     }

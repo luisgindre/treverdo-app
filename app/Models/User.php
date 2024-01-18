@@ -12,6 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -81,7 +82,10 @@ class User extends Authenticatable
         return $this->BelongsTo(User::class);
     }
     
-
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class,'module_role_user');
+    }
 
 
 }

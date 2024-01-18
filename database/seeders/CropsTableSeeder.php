@@ -16,7 +16,6 @@ class CropsTableSeeder extends Seeder
          // Eliminar registros existentes en la tabla antes de insertar nuevos datos
          DB::table('crops')->truncate();
 
-         // Datos de ejemplo para insertar en la tabla
          $crops = [
              // Herbáceos
             ['name' => 'Alfalfa régimen', 'crop_group' => 'Herbáceos'],
