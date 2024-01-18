@@ -32,7 +32,7 @@ class ClientResource extends Resource
                 ->getSearchResultsUsing(fn (string $search): array => $options )
                 ->getOptionLabelUsing(fn ($value): ?string => in_array($value,$options)),
                 Forms\Components\TextInput::make('dni_cif_nie')
-                    ->numeric(),
+                    ->maxLength(12),
                 Forms\Components\TextInput::make('name')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('last_name')
