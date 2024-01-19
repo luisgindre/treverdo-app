@@ -16,6 +16,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Wizard;
 
 
 class UserResource extends Resource
@@ -63,8 +64,7 @@ class UserResource extends Resource
                 Select::make('role_id')
                     ->multiple()
                     ->relationship(name: 'roles', titleAttribute: 'name')
-                    ->preload(),
-                
+                    ->preload(), 
             ]);
     }
 

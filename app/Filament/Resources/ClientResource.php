@@ -27,23 +27,27 @@ class ClientResource extends Resource
 
         return $form
             ->schema([
-                Select::make('dolibarr_thirdparty_id')
-                ->searchable()
-                ->getSearchResultsUsing(fn (string $search): array => $options )
-                ->getOptionLabelUsing(fn ($value): ?string => in_array($value,$options)),
                 Forms\Components\TextInput::make('dni_cif_nie')
-                    ->numeric(),
+                    ->label('NIE')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
-                    ->maxLength(255),
+                    ->label('Nombre')
+                    ->maxLength(255)
+                    ->required(),
                 Forms\Components\TextInput::make('last_name')
-                    ->maxLength(255),
+                    ->label('Apellido')
+                    ->maxLength(255)
+                    ->required(),
                 Forms\Components\TextInput::make('phone')
+                    ->label('Teléfono')
                     ->tel()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->label('E-mail')
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('cell_phone')
+                    ->label('Cel')
                     ->tel()
                     ->maxLength(255),
             ]);
@@ -53,20 +57,25 @@ class ClientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('dolibarr_thirdparty_id')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('dni_cif_nie')
+                    ->label('NIE')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name')
+                    ->label('Apellido')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Teléfono'),
                 Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
+                    ->copyable()
+                    ->copyMessage('Email copiado')
+                    ->copyMessageDuration(1500),
+                    
                 Tables\Columns\TextColumn::make('cell_phone')
+                    ->label('Cel')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -86,7 +95,7 @@ class ClientResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }
