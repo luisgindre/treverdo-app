@@ -1,31 +1,25 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\ClientResource\RelationManagers;
 
-use App\Filament\Resources\InstalationResource\Pages;
-use App\Filament\Resources\InstalationResource\RelationManagers;
-use App\Models\Instalation;
 use Filament\Forms;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Repeater;
 
-class InstalationResource extends Resource
+
+class InstalationRelationManager extends RelationManager
 {
-    protected static ?string $model = Instalation::class;
+    protected static string $relationship = 'instalations';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
+    public function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -63,25 +57,25 @@ class InstalationResource extends Resource
                                 Forms\Components\TextInput::make('cadastral_number'),
                                 Forms\Components\TextInput::make('stoniness_percentage'),
                                 Forms\Components\TextInput::make('useful_depth'),
+                                Forms\Components\TextInput::make('instalation_id'),
                             Select::make('crop_id')
+                                ->required()
                                 ->label('Cultivo')
-                                ->preload()
-                                ->multiple()
-                                ->relationship(name: 'crops', titleAttribute: 'name'),
-                            Select::make('irrigation_id')
-                                ->label('Riegos')
-                                ->preload()
-                                ->multiple()
-                                ->relationship(name: 'irrigations', titleAttribute: 'name'),
+                                ->relationship(
+                                    name: 'crops',
+                                    modifyQueryUsing: fn (Builder $query) => $query->orderBy('name')->orderBy('name'),
+                                ),
                                 
+
                     ])->columns(4)
                 ]),
             ]);
     }
 
-    public static function table(Table $table): Table
+    public function table(Table $table): Table
     {
         return $table
+            ->recordTitleAttribute('client_id')
             ->columns([
                 Tables\Columns\TextColumn::make('client.last_name')
                 ->label('Apellido')
@@ -119,22 +113,21 @@ class InstalationResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->filters([
+                //
+            ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make(),
+            ])
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            RelationManagers\ParcelsRelationManager::class,
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListInstalations::route('/'),
-            'create' => Pages\CreateInstalation::route('/create'),
-            'edit' => Pages\EditInstalation::route('/{record}/edit'),
-        ];
     }
 }

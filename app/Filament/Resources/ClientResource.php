@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Http;
+use Filament\Forms\Components\Fieldset;
 
 class ClientResource extends Resource
 {
@@ -103,7 +104,7 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\InstalationRelationManager::class,
         ];
     }
 
@@ -115,6 +116,8 @@ class ClientResource extends Resource
             'edit' => Pages\EditClient::route('/{record}/edit'),
         ];
     }
+
+    
 
     protected static function obtenerOpcionesDesdeAPI()
     {
