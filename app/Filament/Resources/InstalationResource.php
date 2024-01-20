@@ -18,18 +18,23 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Fieldset;
 
 class InstalationResource extends Resource
 {
     protected static ?string $model = Instalation::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
+
+    protected static ?string $navigationGroup = 'Riego Solar';
+    
+    protected static ?string $navigationLabel = 'Instalaciones';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('Detalles del cliente')
+                Section::make('Datos del cliente')
                     ->schema([
                         Select::make('client_id')
                             ->required()
@@ -55,26 +60,47 @@ class InstalationResource extends Resource
                         Forms\Components\TextInput::make('instalation_total_irrigation_area')
                             ->numeric(),
                     ])->columns(2),
-                    Section::make('Agregar Parcelas')
+                    Section::make('Parcelas')
                         ->schema([    
                             Repeater::make('parcels')
+                            ->label('Parcelas')
                             ->relationship()
                             ->schema([
-                                Forms\Components\TextInput::make('cadastral_number'),
-                                Forms\Components\TextInput::make('stoniness_percentage'),
-                                Forms\Components\TextInput::make('useful_depth'),
-                            Select::make('crop_id')
-                                ->label('Cultivo')
-                                ->preload()
-                                ->multiple()
-                                ->relationship(name: 'crops', titleAttribute: 'name'),
-                            Select::make('irrigation_id')
-                                ->label('Riegos')
-                                ->preload()
-                                ->multiple()
-                                ->relationship(name: 'irrigations', titleAttribute: 'name'),
-                                
-                    ])->columns(4)
+                                Fieldset::make('Datos del Suelo')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('cadastral_number')
+                                            ->prefixIcon('heroicon-m-information-circle')
+                                            ->label('Numero Catastral'),
+                                            Forms\Components\TextInput::make('stoniness_percentage')
+                                            ->prefixIcon('heroicon-m-information-circle')
+                                            ->label('Pedregosidad'),
+                                            Forms\Components\TextInput::make('useful_depth')
+                                            ->label('Profundidad útil')
+                                            ->suffix('m2')
+                                            ->prefixIcon('heroicon-m-information-circle'),
+                                    ])->columns(3),
+                                    Fieldset::make('Cultivo')
+                                    ->schema([
+                                        Select::make('crop_id')
+                                            ->label('Cultivo')
+                                            ->preload()
+                                            ->multiple()
+                                            ->relationship(name: 'crops', titleAttribute: 'name'),
+                                        Select::make('irrigation_id')
+                                            ->label('Riegos')
+                                            ->preload()
+                                            ->multiple()
+                                            ->relationship(name: 'irrigations', titleAttribute: 'name'),
+                                            /* Fieldset::make('Metadata')
+                                                ->relationship('metadata')
+                                                ->schema([
+                                                    Forms\Components\TextInput::make('title'),
+                                                    Forms\Components\Textarea::make('description'),
+                                                    Forms\Components\FileUpload::make('image'),
+
+                                                ]) */
+                                    ])->columns(2),    
+                    ])
                 ]),
             ]);
     }
@@ -125,7 +151,7 @@ class InstalationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ParcelsRelationManager::class,
+            /* RelationManagers\ParcelsRelationManager::class, */
         ];
     }
 

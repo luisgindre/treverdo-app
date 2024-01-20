@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(IrrigationsTableSeeder::class);
         $this->call(ModulesTableSeeder::class);
         $this->call(SoilsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         
     }
 }

@@ -18,7 +18,7 @@ class RolesTableSeeder extends Seeder
          $roles = [
              
             ['name' => 'Admin', 'role_description' => 'Administrador del sistema'],
-            ['name' => 'Data Entry', 'Carga Clientes y sus datos del módulo de Riego Solar, orientado a Mancha'],
+            ['name' => 'Vendedor', 'Carga Clientes y sus datos del módulo de Riego Solar, orientado a Mancha'],
 
             ];
            
