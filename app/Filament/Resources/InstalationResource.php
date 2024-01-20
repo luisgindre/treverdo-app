@@ -24,11 +24,20 @@ class InstalationResource extends Resource
 {
     protected static ?string $model = Instalation::class;
 
+    protected static ?string $modelLabel = 'Instalación';
+
+    protected static ?string $navigationLabel = 'Instalaciones';
+    
+    protected static ?string $pluralModelLabel = 'Instalaciones';
+
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
     protected static ?string $navigationGroup = 'Riego Solar';
     
-    protected static ?string $navigationLabel = 'Instalaciones';
+
+    /* protected static ?string $navigationParentItem = 'Client'; */
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -117,13 +126,17 @@ class InstalationResource extends Resource
                 ->label('Nombre ')
                 ->searchable(),
                 Tables\Columns\TextColumn::make('instalation_location')
+                    ->label('Locación')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('instalation_adress')
+                    ->label('Dirección')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('instalation_total_area')
+                    ->label('Área total')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('instalation_total_irrigation_area')
+                    ->label('Área de riego total')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

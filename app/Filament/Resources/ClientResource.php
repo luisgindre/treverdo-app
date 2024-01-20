@@ -22,6 +22,14 @@ class ClientResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = 'Cliente';
+
+    protected static ?string $navigationLabel = 'Clientes';
+    
+    protected static ?string $pluralModelLabel = 'Clientes';
+
+    protected static ?string $navigationGroup = 'Riego Solar';
+
     public static function form(Form $form): Form
     {
         $options = self::obtenerOpcionesDesdeAPI(); // Accede al método estáticamente
