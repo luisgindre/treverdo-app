@@ -70,45 +70,81 @@ class InstalationResource extends Resource
                         Forms\Components\TextInput::make('instalation_total_irrigation_area')
                             ->numeric(),
                     ])->columns(2),
-                    Section::make('Parcelas')
+                    Section::make('Parcelas y Terrenos')
                         ->schema([    
                             Repeater::make('parcels')
-                            ->label('Parcelas')
+                            ->label('Parcela')
                             ->relationship()
                             ->schema([
-                                Fieldset::make('Datos del Suelo')
+                                Forms\Components\TextInput::make('cadastral_number')
+                                    ->prefixIcon('heroicon-m-information-circle')
+                                    ->label('Numero Catastral'),
+                                    Forms\Components\TextInput::make('stoniness_percentage')
+                                    ->prefixIcon('heroicon-m-information-circle')
+                                    ->label('Pedregosidad'),
+                                    Forms\Components\TextInput::make('useful_depth')
+                                    ->label('Profundidad útil')
+                                    ->suffix('m2')
+                                    ->prefixIcon('heroicon-m-information-circle'),
+                                Repeater::make('terrains')
+                                    ->label('Terrenos')
+                                    ->relationship()
                                     ->schema([
-                                        Forms\Components\TextInput::make('cadastral_number')
-                                            ->prefixIcon('heroicon-m-information-circle')
-                                            ->label('Numero Catastral'),
-                                            Forms\Components\TextInput::make('stoniness_percentage')
-                                            ->prefixIcon('heroicon-m-information-circle')
-                                            ->label('Pedregosidad'),
-                                            Forms\Components\TextInput::make('useful_depth')
-                                            ->label('Profundidad útil')
-                                            ->suffix('m2')
-                                            ->prefixIcon('heroicon-m-information-circle'),
-                                    ])->columns(3),
-                                    Fieldset::make('Cultivo')
-                                    ->schema([
-                                        Select::make('crop_id')
-                                            ->label('Cultivo')
-                                            ->preload()
-                                            ->multiple()
-                                            ->relationship(name: 'crops', titleAttribute: 'name'),
-                                        Select::make('irrigation_id')
-                                            ->label('Riegos')
-                                            ->preload()
-                                            ->multiple()
-                                            ->relationship(name: 'irrigations', titleAttribute: 'name'),
-                                            Forms\Components\TextInput::make('distance_between_drips')
-                                            ->label('Distancia entre goteros')
-                                         
-                                         
-                                       
-                                    ])->columns(2),    
-                    ])
-                ]),
+                                        Fieldset::make('Terreno')
+                                            ->schema([
+                                                Forms\Components\TextInput::make('distance_between_drips')
+                                                    ->prefixIcon('heroicon-m-information-circle')
+                                                    ->suffix('m')
+                                                    ->label('Distancia entre goteo'),
+                                                Forms\Components\TextInput::make('branch_quantity_per_line')
+                                                    ->prefixIcon('heroicon-m-information-circle')
+                                                    ->suffix('nº')
+                                                    ->label('Número de ramales por línea'),
+                                                Forms\Components\TextInput::make('drip_flow')
+                                                    ->prefixIcon('heroicon-m-information-circle')
+                                                    ->suffix('x')
+                                                    ->label('drip_flow'),
+                                                Forms\Components\TextInput::make('distance_between_lines')
+                                                    ->prefixIcon('heroicon-m-information-circle')
+                                                    ->suffix('m')
+                                                    ->label('Distancia entre líneas'),
+                                                Select::make('crop_id')
+                                                    ->label('Cultivos')
+                                                    ->relationship(name: 'crop', titleAttribute: 'name'),    
+                                                Select::make('irrigation_id')
+                                                    ->label('Riegos')
+                                                    ->relationship(name: 'irrigation', titleAttribute: 'name'),  
+                                                    
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_jan')
+                                                    ->label('Enero'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_feb')
+                                                    ->label('Febrero'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_mar')
+                                                    ->label('Marzo'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_apr')
+                                                    ->label('Abril'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_may')
+                                                    ->label('Mayo'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_jun')
+                                                    ->label('Junio'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_jul')
+                                                    ->label('Julio'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_aug')
+                                                    ->label('Agosto'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_sep')
+                                                    ->label('Septiembre'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_oct')
+                                                    ->label('Octubre'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_nov')
+                                                    ->label('Noviembre'),
+                                                Forms\Components\TextInput::make('irrigation_hours_per_day_dic')
+                                                    ->label('Diciembre'),
+                                            ])->columns(3),
+                                           
+                                    ])->columnSpan(3),      
+                            ]),
+                            
+                        ]),
             ]);
     }
 

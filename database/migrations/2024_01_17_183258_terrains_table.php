@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('crop_irrigation_parcel', function (Blueprint $table) {
+        Schema::create('terrains', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parcel_id')->nullable();
             $table->foreignId('crop_id')->nullable();
