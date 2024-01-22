@@ -126,7 +126,12 @@ class ClientResource extends Resource
     }
 
     
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
+    
     protected static function obtenerOpcionesDesdeAPI()
     {
          // URL de la API de Dolibarr

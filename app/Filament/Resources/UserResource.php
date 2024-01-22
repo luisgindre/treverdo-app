@@ -34,6 +34,10 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                Select::make('role_id')
+                    ->multiple()
+                    ->relationship(name: 'roles', titleAttribute: 'name')
+                    ->preload(), 
                 TextInput::make('name')
                     ->label('Nombre')
                     ->required()
@@ -61,10 +65,7 @@ class UserResource extends Resource
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Select::make('role_id')
-                    ->multiple()
-                    ->relationship(name: 'roles', titleAttribute: 'name')
-                    ->preload(), 
+                
             ]);
     }
 

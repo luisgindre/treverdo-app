@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\InstalationResource\Pages;
 use App\Filament\Resources\InstalationResource\RelationManagers;
 use App\Models\Instalation;
+use App\Models\Irrigation;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
@@ -100,14 +101,11 @@ class InstalationResource extends Resource
                                             ->preload()
                                             ->multiple()
                                             ->relationship(name: 'irrigations', titleAttribute: 'name'),
-                                            /* Fieldset::make('Metadata')
-                                                ->relationship('metadata')
-                                                ->schema([
-                                                    Forms\Components\TextInput::make('title'),
-                                                    Forms\Components\Textarea::make('description'),
-                                                    Forms\Components\FileUpload::make('image'),
-
-                                                ]) */
+                                            Forms\Components\TextInput::make('distance_between_drips')
+                                            ->label('Distancia entre goteros')
+                                         
+                                         
+                                       
                                     ])->columns(2),    
                     ])
                 ]),
@@ -175,5 +173,10 @@ class InstalationResource extends Resource
             'create' => Pages\CreateInstalation::route('/create'),
             'edit' => Pages\EditInstalation::route('/{record}/edit'),
         ];
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
     }
 }

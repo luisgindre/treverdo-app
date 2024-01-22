@@ -19,11 +19,11 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-tag';
 
-    protected static ?string $modelLabel = 'Perfil';
+    protected static ?string $modelLabel = 'Roles y Permisos';
 
-    protected static ?string $navigationLabel = 'Perfil';
+    protected static ?string $navigationLabel = 'Roles y Permisos';
     
-    protected static ?string $pluralModelLabel = 'Perfiles';
+    protected static ?string $pluralModelLabel = 'Roles y Permisos';
 
     protected static ?string $navigationGroup = 'Administrar';
     
