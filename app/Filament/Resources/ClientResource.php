@@ -32,7 +32,7 @@ class ClientResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $options = self::obtenerOpcionesDesdeAPI(); // Accede al método estáticamente
+        //$options = self::obtenerOpcionesDesdeAPI(); // Accede al método estáticamente
 
         return $form
             ->schema([
