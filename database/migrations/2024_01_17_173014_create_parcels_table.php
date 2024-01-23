@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('parcels', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('instalation_id')->nullable();
+            $table->foreignId('installation_id')->nullable();
             $table->foreignId('soil_id')->nullable();
             $table->string('cadastral_number')->nullable();
             $table->unsignedbigInteger('stoniness_percentage')->nullable();

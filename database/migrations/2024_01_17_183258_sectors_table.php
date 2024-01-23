@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('terrains', function (Blueprint $table) {
+        Schema::create('sectors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parcel_id')->nullable();
             $table->foreignId('crop_id')->nullable();
@@ -41,6 +41,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('crop_irrigation_parcel');
+        Schema::dropIfExists('sectors');
     }
 };

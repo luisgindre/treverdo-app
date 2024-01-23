@@ -24,8 +24,8 @@ class Client extends Model
         
     ];
 
-    public function instalations(): HasMany
+    public function installations(): HasMany
     {
-        return $this->hasMany(instalation::class);
+        return $this->hasMany(installation::class);
     }
 }

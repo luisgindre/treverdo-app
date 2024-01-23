@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\InstalationResource\Pages;
+namespace App\Filament\Resources\installationResource\Pages;
 
-use App\Filament\Resources\InstalationResource;
+use App\Filament\Resources\installationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
-class ListInstalations extends ListRecords
+class Listinstallations extends ListRecords
 {
-    protected static string $resource = InstalationResource::class;
+    protected static string $resource = installationResource::class;
 
     protected function getHeaderActions(): array
     {
