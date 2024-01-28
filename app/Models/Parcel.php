@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+
 class Parcel extends Model
 {
     use HasFactory;
@@ -28,7 +29,7 @@ class Parcel extends Model
    
     public function sectors(): HasMany
     {
-        return $this->hasMany(sector::class);
+        return $this->hasMany(Sector::class);
     }
 
    /*  public function irrigation() {

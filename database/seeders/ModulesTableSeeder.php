@@ -17,7 +17,6 @@ class ModulesTableSeeder extends Seeder
 
          $modules = [
              
-            ['name' => 'Admin'],
             ['name' => 'Riego Solar'],
 
             ];

@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class terrain extends Model
+class Sector extends Model
 {
     use HasFactory;
 
     public $guarded = [];
 
-    public function terrains(): BelongsTo
+    public function sector(): BelongsTo
     {
-        return $this->belongsTo(terrain::class);
+        return $this->belongsTo(Sector::class);
     }
 
     public function crop(): BelongsTo
