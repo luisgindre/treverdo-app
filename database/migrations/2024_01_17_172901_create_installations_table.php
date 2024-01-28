@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('instalations', function (Blueprint $table) {
+        Schema::create('installations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('client_id')->nullable();
             $table->unsignedbigInteger('dolibarr_proyect_id')->nullable();
-            $table->string('instalation_location')->nullable();
-            $table->string('instalation_adress')->nullable();
-            $table->unsignedbigInteger('instalation_total_area')->nullable();
-            $table->unsignedbigInteger('instalation_total_irrigation_area')->nullable();
+            $table->string('installation_location')->nullable();
+            $table->string('installation_adress')->nullable();
+            $table->unsignedbigInteger('installation_total_area')->nullable();
+            $table->unsignedbigInteger('installation_total_irrigation_area')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('instalations');
+        Schema::dropIfExists('installations');
     }
 };

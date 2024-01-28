@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Filament\Resources\InstalationResource\Pages;
+namespace App\Filament\Resources\installationResource\Pages;
 
-use App\Filament\Resources\InstalationResource;
+use App\Filament\Resources\installationResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateInstalation extends CreateRecord
+class Createinstallation extends CreateRecord
 {
-    protected static string $resource = InstalationResource::class;
+    protected static string $resource = installationResource::class;
 }

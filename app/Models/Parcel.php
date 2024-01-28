@@ -20,15 +20,15 @@ class Parcel extends Model
         return $this->hasOne(soil::class);
     }
 
-    public function instalation(): BelongsTo
+    public function installation(): BelongsTo
     {
-        return $this->belongsTo(Instalation::class);
+        return $this->belongsTo(installation::class);
     }
    
    
-    public function terrains(): HasMany
+    public function sectors(): HasMany
     {
-        return $this->hasMany(terrain::class);
+        return $this->hasMany(sector::class);
     }
 
    /*  public function irrigation() {

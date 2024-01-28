@@ -16,9 +16,9 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Fieldset;
 
 
-class InstalationRelationManager extends RelationManager
+class installationRelationManager extends RelationManager
 {
-    protected static string $relationship = 'instalations';
+    protected static string $relationship = 'installations';
 
     public function form(Form $form): Form
     {
@@ -37,17 +37,17 @@ class InstalationRelationManager extends RelationManager
                         ->searchable(['name', 'last_name'])
                         ->preload()
                         ->columns(1),
-                    Forms\Components\TextInput::make('instalation_location')
+                    Forms\Components\TextInput::make('installation_location')
                         ->label('Localidad')
                         ->maxLength(255)
                         ->columns(1),
-                    Forms\Components\TextInput::make('instalation_adress')
+                    Forms\Components\TextInput::make('installation_adress')
                         ->label('Domicilio')
                         ->maxLength(255),
-                    Forms\Components\TextInput::make('instalation_total_area')
+                    Forms\Components\TextInput::make('installation_total_area')
                         ->label('Área total')
                         ->numeric(),
-                    Forms\Components\TextInput::make('instalation_total_irrigation_area')
+                    Forms\Components\TextInput::make('installation_total_irrigation_area')
                         ->numeric(),
                 ])->columns(2),
                 Section::make('Parcelas y Terrenos')
@@ -66,7 +66,7 @@ class InstalationRelationManager extends RelationManager
                                 ->label('Profundidad útil')
                                 ->suffix('m2')
                                 ->prefixIcon('heroicon-m-information-circle'),
-                            Repeater::make('terrains')
+                            Repeater::make('sectors')
                                 ->label('Terrenos')
                                 ->relationship()
                                 ->schema([
@@ -139,14 +139,14 @@ class InstalationRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('client.name')
                 ->label('Nombre ')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_location')
+                Tables\Columns\TextColumn::make('installation_location')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_adress')
+                Tables\Columns\TextColumn::make('installation_adress')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_total_area')
+                Tables\Columns\TextColumn::make('installation_total_area')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('instalation_total_irrigation_area')
+                Tables\Columns\TextColumn::make('installation_total_irrigation_area')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

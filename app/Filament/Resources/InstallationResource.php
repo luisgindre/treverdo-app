@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\InstalationResource\Pages;
-use App\Filament\Resources\InstalationResource\RelationManagers;
-use App\Models\Instalation;
+use App\Filament\Resources\installationResource\Pages;
+use App\Filament\Resources\installationResource\RelationManagers;
+use App\Models\installation;
 use App\Models\Irrigation;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
@@ -21,9 +21,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Fieldset;
 
-class InstalationResource extends Resource
+class installationResource extends Resource
 {
-    protected static ?string $model = Instalation::class;
+    protected static ?string $model = installation::class;
 
     protected static ?string $modelLabel = 'Instalación';
 
@@ -57,17 +57,17 @@ class InstalationResource extends Resource
                             ->searchable(['name', 'last_name'])
                             ->preload()
                             ->columns(1),
-                        Forms\Components\TextInput::make('instalation_location')
+                        Forms\Components\TextInput::make('installation_location')
                             ->label('Localidad')
                             ->maxLength(255)
                             ->columns(1),
-                        Forms\Components\TextInput::make('instalation_adress')
+                        Forms\Components\TextInput::make('installation_adress')
                             ->label('Domicilio')
                             ->maxLength(255),
-                        Forms\Components\TextInput::make('instalation_total_area')
+                        Forms\Components\TextInput::make('installation_total_area')
                             ->label('Área total')
                             ->numeric(),
-                        Forms\Components\TextInput::make('instalation_total_irrigation_area')
+                        Forms\Components\TextInput::make('installation_total_irrigation_area')
                             ->numeric(),
                     ])->columns(2),
                     Section::make('Parcelas y Terrenos')
@@ -86,7 +86,7 @@ class InstalationResource extends Resource
                                     ->label('Profundidad útil')
                                     ->suffix('m2')
                                     ->prefixIcon('heroicon-m-information-circle'),
-                                Repeater::make('terrains')
+                                Repeater::make('sectors')
                                     ->label('Terrenos')
                                     ->relationship()
                                     ->schema([
@@ -159,17 +159,17 @@ class InstalationResource extends Resource
                 Tables\Columns\TextColumn::make('client.name')
                 ->label('Nombre ')
                 ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_location')
+                Tables\Columns\TextColumn::make('installation_location')
                     ->label('Locación')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_adress')
+                Tables\Columns\TextColumn::make('installation_adress')
                     ->label('Dirección')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('instalation_total_area')
+                Tables\Columns\TextColumn::make('installation_total_area')
                     ->label('Área total')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('instalation_total_irrigation_area')
+                Tables\Columns\TextColumn::make('installation_total_irrigation_area')
                     ->label('Área de riego total')
                     ->numeric()
                     ->sortable(),
@@ -205,9 +205,9 @@ class InstalationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListInstalations::route('/'),
-            'create' => Pages\CreateInstalation::route('/create'),
-            'edit' => Pages\EditInstalation::route('/{record}/edit'),
+            'index' => Pages\Listinstallations::route('/'),
+            'create' => Pages\Createinstallation::route('/create'),
+            'edit' => Pages\Editinstallation::route('/{record}/edit'),
         ];
     }
 
