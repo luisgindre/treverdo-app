@@ -12,6 +12,9 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
+
 
 class CompanyResource extends Resource
 {
@@ -23,19 +26,24 @@ class CompanyResource extends Resource
 
     protected static ?string $navigationLabel = 'Empresas';
 
+    protected static ?string $modelLabel = 'Empresa';
+    
+    protected static ?string $pluralModelLabel = 'Empresas';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('company_adress')
+               TextInput::make('company_adress')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('company_phone')
+               TextInput::make('company_phone')
                     ->tel()
                     ->maxLength(25),
-                Forms\Components\TextInput::make('company_mail')
+               TextInput::make('company_mail')
                     ->maxLength(255),
             ]);
     }
@@ -44,19 +52,26 @@ class CompanyResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('company_adress')
+                TextColumn::make('company_adress')
+                    ->label('Domicilio')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('company_phone')
+                TextColumn::make('company_phone')
+                    ->label('Teléfono')
+                    ->placeholder('Sin dato')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('company_mail')
+                TextColumn::make('company_mail')
+                    ->label('Email')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
+                    ->label('Fecha Creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
+                    ->label('Actualizado')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

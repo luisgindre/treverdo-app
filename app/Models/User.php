@@ -34,6 +34,11 @@ class User extends Authenticatable
         'user_id',
         'enabled',
         'password',
+        'cell_phone',
+        'company_id',
+        'company_position',
+        'work_phone',
+        'work_mail',
     ];
 
     /**
@@ -47,6 +52,7 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+    
 
     /**
      * The attributes that should be cast.
@@ -84,8 +90,16 @@ class User extends Authenticatable
     
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class,'module_role_user');
+        return $this->belongsToMany(Role::class,'module_role_user')->withPivot('module_id')->withTimestamps();
+    }
+    
+    public function modules(): BelongsToMany
+    {
+        return $this->belongsToMany(Module::class,'module_role_user');
     }
 
-
+    public function getFullNameAttribute()
+    {
+        return $this->name . ' ' . $this->last_name;
+    }
 }
