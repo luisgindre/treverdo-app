@@ -18,6 +18,7 @@ use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Colores;
+use Illuminate\Auth\Events\Verified;
 
 class AdminPanelProvider extends PanelProvider
 {

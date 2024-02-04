@@ -103,34 +103,43 @@ class UserResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('fullName')
                     ->label('Apellido y Nombre')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cell_phone')
                     ->label('Celular')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company.name')
                     ->label('Empresa')
+                    ->placeholder('Sin dato')
                     ->sortable()
                     ->badge(),
                 Tables\Columns\TextColumn::make('company_position')
                     ->label('Cargo')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('work_phone')
                     ->label('Telefono (Empresa)')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('work_mail')
                     ->label('Email (Empresa)')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('enabled')
                     ->label('Estado')
+                    ->placeholder('Sin dato')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('user.fullName')
                     ->label('Usuario Creador')
+                    ->placeholder('Sin dato')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('last_update_user_id')
                     ->label('Última Modificación')
+                    ->placeholder('Sin dato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -175,4 +184,6 @@ class UserResource extends Resource
             'view' => Pages\ViewUser::route('/{record}'),
         ];
     }
+
+
 }

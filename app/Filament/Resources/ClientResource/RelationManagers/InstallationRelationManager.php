@@ -132,21 +132,26 @@ class installationRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('client_id')
             ->columns([
-                Tables\Columns\TextColumn::make('client.last_name')
-                ->label('Apellido')
-                ->sortable()
-                ->searchable(),
-                Tables\Columns\TextColumn::make('client.name')
-                ->label('Nombre ')
+                Tables\Columns\TextColumn::make('client.fullName')
+                ->label('Cliente ')
+                ->placeholder('Sin dato')
                 ->searchable(),
                 Tables\Columns\TextColumn::make('installation_location')
+                    ->label('Locación')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('installation_adress')
+                    ->label('Dirección')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('installation_total_area')
+                    ->label('Área total')
+                    ->placeholder('Sin dato')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('installation_total_irrigation_area')
+                    ->label('Área de riego total')
+                    ->placeholder('Sin dato')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
