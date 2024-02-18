@@ -21,4 +21,5 @@ class Company extends Model
     {
         return $this->hasOne(User::class);
     }
+    
 }

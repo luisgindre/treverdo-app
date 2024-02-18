@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -14,7 +14,7 @@ use Filament\Panel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasFactory;
@@ -34,6 +34,11 @@ class User extends Authenticatable
         'user_id',
         'enabled',
         'password',
+        'cell_phone',
+        'company_id',
+        'company_position',
+        'work_phone',
+        'work_mail',
     ];
 
     /**
@@ -47,6 +52,7 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+    
 
     /**
      * The attributes that should be cast.
@@ -84,8 +90,16 @@ class User extends Authenticatable
     
     public function roles(): BelongsToMany
     {
-        return $this->belongsToMany(Role::class,'module_role_user');
+        return $this->belongsToMany(Role::class,'module_role_user')->withPivot('module_id')->withTimestamps();
+    }
+    
+    public function modules(): BelongsToMany
+    {
+        return $this->belongsToMany(Module::class,'module_role_user');
     }
 
-
+    public function getFullNameAttribute()
+    {
+        return $this->last_name . ', ' . $this->name ;
+    }
 }

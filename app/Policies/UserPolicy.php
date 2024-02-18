@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -12,8 +13,8 @@ class UserPolicy
      */
     public function viewAny(User $user): bool
     {
-        
-        return true;
+
+        return $user->roles()->where('name', 'admin')->exists();
     }
 
     /**

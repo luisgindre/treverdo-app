@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\Fieldset;
+use Illuminate\Support\Facades\Auth;
 
 class ClientResource extends Resource
 {
@@ -32,7 +33,7 @@ class ClientResource extends Resource
 
     public static function form(Form $form): Form
     {
-        //$options = self::obtenerOpcionesDesdeAPI(); // Accede al método estáticamente
+        /* $options = self::obtenerOpcionesDesdeAPI(); */ // Accede al método estáticamente
 
         return $form
             ->schema([
@@ -65,26 +66,31 @@ class ClientResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(function (Builder $query) {$user = Auth::user(); if(!$user->roles()
+                ->whereIn('name', ['Admin'])
+                ->exists()){ return $query->where('user_creator_id','=',Auth::user()->id);}})
             ->columns([
+                Tables\Columns\TextColumn::make('fullName')
+                    ->label('Cliente')
+                    ->placeholder('Sin dato')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('dni_cif_nie')
                     ->label('NIE')
+                    ->placeholder('Sin dato')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->label('Nombre')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('last_name')
-                    ->label('Apellido')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->searchable()
+                    ->placeholder('Sin dato')
                     ->label('Teléfono'),
                 Tables\Columns\TextColumn::make('email')
                     ->copyable()
+                    ->placeholder('Sin dato')
                     ->copyMessage('Email copiado')
                     ->copyMessageDuration(1500),
                     
                 Tables\Columns\TextColumn::make('cell_phone')
                     ->label('Cel')
+                    ->placeholder('Sin dato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
@@ -112,7 +118,7 @@ class ClientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\InstalationRelationManager::class,
+            RelationManagers\installationRelationManager::class,
         ];
     }
 
@@ -126,6 +132,11 @@ class ClientResource extends Resource
     }
 
     
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
 
     protected static function obtenerOpcionesDesdeAPI()
     {

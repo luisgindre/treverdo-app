@@ -1,9 +1,12 @@
 <?php
 
 use App\Http\Controllers\ClienteController;
+use App\Mail\prueba;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,10 +18,10 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
 });
-
+ */
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -64,14 +67,8 @@ Route::middleware([
         return view('dashboard',compact('terceros'));
     })->name('dashboard');
     
-    Route::get('/nuevoCliente', function () {
-        return view('nuevoCliente');
-    })->name('nuevoCliente');
-    
-    
-    Route::get('/nuevaInstalacion', function () {
-        return view('nueva-instalacion');
-    })->name('nuevaInstalacion');
-
-    Route::post('/crearCliente', [ClienteController::class, 'agregarCliente'])->name('crearCliente');
 });
+
+
+
+

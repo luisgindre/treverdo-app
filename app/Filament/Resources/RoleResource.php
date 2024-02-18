@@ -19,11 +19,11 @@ class RoleResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-s-tag';
 
-    protected static ?string $modelLabel = 'Perfil';
+    protected static ?string $modelLabel = 'Rol';
 
-    protected static ?string $navigationLabel = 'Perfil';
+    protected static ?string $navigationLabel = 'Roles';
     
-    protected static ?string $pluralModelLabel = 'Perfiles';
+    protected static ?string $pluralModelLabel = 'Roles';
 
     protected static ?string $navigationGroup = 'Administrar';
     
@@ -34,9 +34,11 @@ class RoleResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('role_description')
+                    ->label('Descripción')   
                     ->required()
                     ->maxLength(255),    
             ]);
@@ -47,14 +49,18 @@ class RoleResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role_description')
+                    ->label('Descripción') 
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado') 
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                ->label('Actualizado') 
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

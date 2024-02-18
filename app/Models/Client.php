@@ -24,8 +24,13 @@ class Client extends Model
         
     ];
 
-    public function instalations(): HasMany
+    public function installations(): HasMany
     {
-        return $this->hasMany(instalation::class);
+        return $this->hasMany(installation::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->last_name . ', ' . $this->name ;
     }
 }
