@@ -15,13 +15,22 @@ class UserTableSeeder extends Seeder
      */
     public function run(): void
     {
-       /*  DB::table('soils')->truncate(); */
+       DB::table('users')->truncate();
 
         User::create([
         'name' => 'admin',
         'email' => 'admin@admin',
         'password' => Hash::make('admin'),
-        'last_name' => 'Gindre',
+        'last_name' => 'admin',
+        'enabled' => TRUE,
+        'user_id' => 1,
+    ]);
+
+    User::create([
+        'name' => 'Juan',
+        'email' => 'juanprueba@admin',
+        'password' => Hash::make('jp123456'),
+        'last_name' => 'Prueba',
         'enabled' => TRUE,
         'user_id' => 1,
     ]);

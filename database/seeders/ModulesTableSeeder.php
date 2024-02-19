@@ -17,6 +17,7 @@ class ModulesTableSeeder extends Seeder
 
          $modules = [
              
+            ['name' => 'Administracion'],
             ['name' => 'Riego Solar'],
 
             ];
