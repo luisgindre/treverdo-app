@@ -23,7 +23,11 @@ class ModuleRoleUserTableSeeder extends Seeder
            
           ['user_id' => '1', 'role_id' => '1', 'module_id' => '1', 'user_role_module_since' => Carbon::now()],
           ['user_id' => '1', 'role_id' => '1', 'module_id' => '2', 'user_role_module_since' => Carbon::now()],
-          ['user_id' => '2', 'role_id' => '2', 'module_id' => '2', 'user_role_module_since' => Carbon::now()],
+          ['user_id' => '2', 'role_id' => '1', 'module_id' => '1', 'user_role_module_since' => Carbon::now()],
+          ['user_id' => '2', 'role_id' => '1', 'module_id' => '2', 'user_role_module_since' => Carbon::now()],
+          ['user_id' => '3', 'role_id' => '1', 'module_id' => '1', 'user_role_module_since' => Carbon::now()],
+          ['user_id' => '3', 'role_id' => '1', 'module_id' => '2', 'user_role_module_since' => Carbon::now()],
+          ['user_id' => '4', 'role_id' => '2', 'module_id' => '2', 'user_role_module_since' => Carbon::now()],
           
           ];
          

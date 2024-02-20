@@ -27,10 +27,28 @@ class UserTableSeeder extends Seeder
     ]);
 
     User::create([
+        'name' => 'Oscar',
+        'email' => 'garciave@treverdo.es',
+        'password' => Hash::make('oscar'),
+        'last_name' => 'Garcia Velazco',
+        'enabled' => TRUE,
+        'user_id' => 1,
+    ]);
+
+    User::create([
+        'name' => 'Martin',
+        'email' => 'mglucca@treverdo.es',
+        'password' => Hash::make('martin'),
+        'last_name' => 'Lucca',
+        'enabled' => TRUE,
+        'user_id' => 1,
+    ]);
+
+    User::create([
         'name' => 'Juan',
-        'email' => 'juanprueba@admin',
-        'password' => Hash::make('jp123456'),
-        'last_name' => 'Prueba',
+        'email' => 'juanagente@admin',
+        'password' => Hash::make('juan'),
+        'last_name' => 'Agente',
         'enabled' => TRUE,
         'user_id' => 1,
     ]);

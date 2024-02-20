@@ -18,7 +18,7 @@ class ClientFactory extends Factory
     {
         return [
             'dolibarr_thirdparty_id' => $this->faker->randomNumber(),
-            'dni_cif_nie' => $this->faker->unique()->regexify('[0-9A-Za-z]{10}'),
+            'dni_nif_nie' => $this->faker->unique()->regexify('[0-9A-Za-z]{10}'),
             'name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
             'phone' => $this->faker->phoneNumber,

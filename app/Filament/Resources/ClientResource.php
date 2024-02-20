@@ -37,7 +37,7 @@ class ClientResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\TextInput::make('dni_cif_nie')
+                Forms\Components\TextInput::make('dni_nif_nie')
                     ->label('NIE')
                     ->required(),
                 Forms\Components\TextInput::make('name')
@@ -74,8 +74,8 @@ class ClientResource extends Resource
                     ->label('Cliente')
                     ->placeholder('Sin dato')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('dni_cif_nie')
-                    ->label('NIE')
+                Tables\Columns\TextColumn::make('dni_nif_nie')
+                    ->label('DNI - NIF - NIE')
                     ->placeholder('Sin dato')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('phone')

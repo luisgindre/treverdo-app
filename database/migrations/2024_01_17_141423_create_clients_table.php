@@ -18,13 +18,16 @@ return new class extends Migration
             $table->foreignId('module_id')->nullable(); //módulo en el que fue cargado el cliente
             $table->foreignId('user_id')->nullable(); //para cuando el cliente tiene usuario
             $table->unsignedbigInteger('dolibarr_thirdparty_id')->nullable();
-            $table->string('dni_cif_nie')->nullable();
-            $table->string('name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->string('dni_nif_nie')->nullable();
+            $table->boolean('is_company')->nullable()->default(false); //booleano 1 empresa - 0 persona física
+            $table->string('company_name')->nullable(); //si es empresa 
+            $table->string('name')->nullable(); //si es persona fisica
+            $table->string('last_name')->nullable(); //si es persona fisica
             $table->string('phone')->nullable();
             $table->string('email')->unique()->nullable();
             $table->string('cell_phone')->nullable();
             $table->timestamps();
+            
         });
     }
 
