@@ -54,38 +54,38 @@ class CreateClient extends CreateRecord
                                /*  ->readOnly()
                                 ->disabled() */,
                             TextInput::make('company_name')
-                                    ->hidden(fn (Get $get): bool => ! $get('is_company'))
-                                    /* ->label('Empresa') */
-                                    ->maxLength(255)
-                                    ->required()
-                                    ->columnSpan(6),
+                                ->label('Empresa')
+                                ->hidden(fn (Get $get): bool => ! $get('is_company'))
+                                ->maxLength(255)
+                                ->required()
+                                ->columnSpan(6),
                             TextInput::make('last_name')
-                                    ->visible(fn (Get $get): bool => ! $get('is_company'))
-                                    ->label('Apellido')
-                                    ->maxLength(255)
-                                    ->required()
-                                    ->columnSpan(3),
+                                ->visible(fn (Get $get): bool => ! $get('is_company'))
+                                ->label('Apellido')
+                                ->maxLength(255)
+                                ->required()
+                                ->columnSpan(3),
                             TextInput::make('name')
-                                    ->visible(fn (Get $get): bool => ! $get('is_company'))
-                                    ->label('Nombre')
-                                    ->maxLength(255)
-                                    ->required()
-                                    ->columnSpan(3),
+                                ->visible(fn (Get $get): bool => ! $get('is_company'))
+                                ->label('Nombre')
+                                ->maxLength(255)
+                                ->required()
+                                ->columnSpan(3),
                             TextInput::make('phone')
-                                    ->label('Teléfono')
-                                    ->tel()
-                                    ->maxLength(255)
-                                    ->columnSpan(2),
+                                ->label('Teléfono')
+                                ->tel()
+                                ->maxLength(255)
+                                ->columnSpan(2),
                             TextInput::make('email')
-                                    ->label('E-mail')
-                                    ->email()
-                                    ->maxLength(255)
-                                    ->columnSpan(2),
+                                ->label('E-mail')
+                                ->email()
+                                ->maxLength(255)
+                                ->columnSpan(2),
                             TextInput::make('cell_phone')
-                                    ->label('Cel')
-                                    ->tel()
-                                    ->maxLength(255)
-                                    ->columnSpan(2),
+                                ->label('Cel')
+                                ->tel()
+                                ->maxLength(255)
+                                ->columnSpan(2),
                         ])->columns(6),
                         Section::make([
                             Toggle::make('is_company')
