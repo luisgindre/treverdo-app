@@ -33,6 +33,7 @@ class UserTableSeeder extends Seeder
         'last_name' => 'Garcia Velazco',
         'enabled' => TRUE,
         'user_id' => 1,
+        'company_id' => 1,
     ]);
 
     User::create([
@@ -42,6 +43,7 @@ class UserTableSeeder extends Seeder
         'last_name' => 'Lucca',
         'enabled' => TRUE,
         'user_id' => 1,
+        'company_id' => 1,
     ]);
 
     User::create([
@@ -51,6 +53,7 @@ class UserTableSeeder extends Seeder
         'last_name' => 'Agente',
         'enabled' => TRUE,
         'user_id' => 1,
+        'company_id' => 2,
     ]);
     }
 }

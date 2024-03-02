@@ -52,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 DispatchServingFilamentEvent::class,
             ])
             ->brandLogo(asset('/img/logotipo.png'))
+            ->brandLogoHeight('4rem')
             ->sidebarCollapsibleOnDesktop()
             ->authMiddleware([
                 Authenticate::class,

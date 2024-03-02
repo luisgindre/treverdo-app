@@ -12,8 +12,13 @@ class Client extends Model
 
     protected $fillable = [
         'id',
+        'user_creator_id',
+        'last_update_user_id',
+        'module_id',
         'dolibarr_thirdparty_id',
-        'dni_cif_nie',
+        'dni_nif_nie',
+        'is_company',
+        'company_name',
         'name',
         'last_name',
         'phone',

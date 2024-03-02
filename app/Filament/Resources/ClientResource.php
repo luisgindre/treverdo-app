@@ -16,6 +16,16 @@ use Filament\Forms\Components\Select;
 use Illuminate\Support\Facades\Http;
 use Filament\Forms\Components\Fieldset;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Get;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Split;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Support\Enums\IconPosition;
+
 
 class ClientResource extends Resource
 {
@@ -37,30 +47,59 @@ class ClientResource extends Resource
 
         return $form
             ->schema([
-                Forms\Components\TextInput::make('dni_nif_nie')
-                    ->label('NIE')
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->label('Nombre')
-                    ->maxLength(255)
-                    ->required(),
-                Forms\Components\TextInput::make('last_name')
-                    ->label('Apellido')
-                    ->maxLength(255)
-                    ->required(),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Teléfono')
-                    ->tel()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('E-mail')
-                    ->email()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('cell_phone')
-                    ->label('Cel')
-                    ->tel()
-                    ->maxLength(255),
-            ]);
+                Split::make([
+                    Section::make([
+                        TextInput::make('dni_nif_nie')
+                            ->label('NIE')
+                            ->required()
+                            /* ->unique() */
+                            ->columnSpan(6)
+                           
+                            ->disabled(),
+                        TextInput::make('company_name')
+                            ->hidden(fn (Get $get): bool => ! $get('is_company'))
+                            /* ->label('Empresa') */
+                            ->maxLength(255)
+                            ->required()
+                            ->columnSpan(6),
+                        TextInput::make('last_name')
+                            ->visible(fn (Get $get): bool => ! $get('is_company'))
+                            ->label('Apellido')
+                            ->maxLength(255)
+                            ->required()
+                            ->columnSpan(3),
+                        TextInput::make('name')
+                            ->visible(fn (Get $get): bool => ! $get('is_company'))
+                            ->label('Nombre')
+                            ->maxLength(255)
+                            ->required()
+                            ->columnSpan(3),
+                        TextInput::make('phone')
+                            ->label('Teléfono')
+                            ->tel()
+                            ->maxLength(255)
+                            ->columnSpan(2),
+                        TextInput::make('email')
+                            ->label('E-mail')
+                            ->email()
+                            ->maxLength(255)
+                            ->columnSpan(2),
+                        TextInput::make('cell_phone')
+                            ->label('Cel')
+                            ->tel()
+                            ->maxLength(255)
+                            ->columnSpan(2),
+                    ])->columns(6),
+                    Section::make([
+                        Toggle::make('is_company')
+                            ->label('Es empresa')
+                            ->onIcon('heroicon-o-building-office-2')
+                            ->offIcon('heroicon-m-user')
+                            ->live(),
+                    ])->grow(false),
+                ])->from('md')
+                
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -70,40 +109,74 @@ class ClientResource extends Resource
                 ->whereIn('name', ['Admin'])
                 ->exists()){ return $query->where('user_creator_id','=',Auth::user()->id);}})
             ->columns([
-                Tables\Columns\TextColumn::make('fullName')
+                TextColumn::make('fullName')
                     ->label('Cliente')
                     ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('dni_nif_nie')
+                    ->sortable(query: function (Builder $query, string $direction): Builder {
+                        return $query
+                            ->orderBy('last_name', $direction)
+                            ->orderBy('name', $direction);
+                    })
+                    ->searchable(['name','last_name']),
+                TextColumn::make('dni_nif_nie')
                     ->label('DNI - NIF - NIE')
-                    ->placeholder('Sin dato')
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable()
-                    ->placeholder('Sin dato')
-                    ->label('Teléfono'),
-                Tables\Columns\TextColumn::make('email')
+                    ->icon('heroicon-o-identification')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('danger')
                     ->copyable()
+                    ->copyMessage('Identificaión copiada')
+                    ->copyMessageDuration(1500)
                     ->placeholder('Sin dato')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('email')
+                    ->icon('heroicon-m-envelope')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('primary')
+                    ->copyable()
                     ->copyMessage('Email copiado')
                     ->copyMessageDuration(1500),
                     
-                Tables\Columns\TextColumn::make('cell_phone')
-                    ->label('Cel')
+                TextColumn::make('cell_phone')
+                    ->label('Movil')
+                    ->icon('heroicon-o-device-phone-mobile')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('#432')
+                    ->copyable()
+                    ->copyMessage('Teléfono copiado')
+                    ->copyMessageDuration(1500)
+                    ->placeholder('Sin dato'),
+                TextColumn::make('phone')
+                    ->label('Teléfono')
                     ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
+                    ->icon('heroicon-c-phone')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('gray')
+                    ->copyable()
+                    ->copyMessage('Teléfono copiado')
+                    ->copyMessageDuration(1500),
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                     
             ])
+            ->defaultSort('fullName', 'asc')
             ->filters([
-                //
+                
+               /*  Filter::make('is_featured')
+                    ->query(fn (Builder $query) => $query->where('is_featured', true)),
+                SelectFilter::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]), */
+               
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -138,29 +211,5 @@ class ClientResource extends Resource
     }
 
 
-    protected static function obtenerOpcionesDesdeAPI()
-    {
-         // URL de la API de Dolibarr
-    $dolibarrApiUrl = 'http://trevdevsp/api/index.php/thirdparties';
-
-    // Credenciales de autenticación (ejemplo usando token de acceso)
-    $accessToken = '94c30caeb8ad7e32c3c70f6fdb498e69ae088453';
-
-    // Realizar la solicitud GET a la API de Dolibarr
-    $response = Http::withHeaders([
-        'DOLAPIKEY' =>  $accessToken,
-    ])->get($dolibarrApiUrl);
-
-    // Verificar si la solicitud fue exitosa (código 200)
-    if ($response->successful()) {
-        // Obtener los datos de la respuesta en formato JSON
-        $data = $response->json();
-    }
-
-        // Formatea los datos según el formato requerido para las opciones del select
-        $options = collect($data)->pluck('name_alias', 'id')->toArray();
-      
-       
-        return $options;
-    }
+    
 }

@@ -24,6 +24,8 @@ use Filament\Forms\Components\Wizard;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Set;
+use Filament\Forms\Components\Toggle;
+use Illuminate\Support\Facades\Http;
 
 
 
@@ -50,15 +52,55 @@ class installationResource extends Resource
     {
         return $form
             ->schema([
-                /* Actions::make([
+                Actions::make([
                     Action::make('star')
                         ->icon('heroicon-m-star')
                         ->requiresConfirmation()
                         ->action(function (Set $set, $state) {
                             
-                            $set('installation_adress', 'Pedro Goyena');
+                            // Datos del tercero a crear
+                            dd($state);
+        $nuevo_tercero = [
+            "name" =>'Prueba',
+            "address" => 'Av. Pedro Goyena 1574',
+            "zip" => 1425,
+            "town" => 'Bs As',
+            "phone" => '4324543543',
+            // Otros campos que desees incluir...
+        ];
+
+        // URL de la API de Dolibarr
+        $url_api = 'http://trevdevsp/api/index.php/thirdparties';
+
+        // Credenciales de autenticación (ejemplo usando token de acceso)
+        $accessToken = '94c30caeb8ad7e32c3c70f6fdb498e69ae088453';
+
+        // Realizar la solicitud GET a la API de Dolibarr
+        $response = Http::withHeaders([ 'DOLAPIKEY' =>  $accessToken, ])->get($url_api);
+
+        // Realizar la solicitud POST para crear el tercero
+        try {
+            $response = Http::withHeaders([ 'DOLAPIKEY' =>  $accessToken, ])
+                            ->post($url_api, $nuevo_tercero);
+
+            $statusCode = $response->status();
+
+            if ($statusCode == 200) {
+                // Tercero creado exitosamente
+                return response()->json(['message' => 'Tercero creado exitosamente'], $statusCode);
+            } else {
+                // Error al crear el tercero
+                return response()->json(['message' => 'Error al crear el tercero', 'status_code' => $statusCode]);
+            }
+
+
+        } catch (\Exception $e) {
+            // Capturar excepciones
+            dd(response()->json(['message' => 'Error al crear el tercero: ' . $e->getMessage()]));
+            return response()->json(['message' => 'Error al crear el tercero: ' . $e->getMessage()]);
+        };
                         })
-                ]), */
+                ]),
                 Wizard::make([
                     Wizard\Step::make('Cliente')
                         ->schema([
@@ -248,5 +290,48 @@ class installationResource extends Resource
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
+    }
+
+
+
+    public function crearTercero()
+    {
+        // Datos del tercero a crear
+        $nuevo_tercero = [
+            "name" =>'Prueba',
+            "address" => 'Av. Pedro Goyena 1574',
+            "zip" => 1425,
+            "town" => 'Bs As',
+            "phone" => '4324543543',
+            // Otros campos que desees incluir...
+        ];
+
+        // URL de la API de Dolibarr
+        $url_api = 'http://trevdevsp/api/index.php/thirdparties';
+
+        // Credenciales de autenticación (ejemplo usando token de acceso)
+        $accessToken = '94c30caeb8ad7e32c3c70f6fdb498e69ae088453';
+
+        // Realizar la solicitud GET a la API de Dolibarr
+        $response = Http::withHeaders([ 'DOLAPIKEY' =>  $accessToken, ])->get($url_api);
+
+        // Realizar la solicitud POST para crear el tercero
+        try {
+            $response = Http::withHeaders([ 'DOLAPIKEY' =>  $accessToken, ])
+                            ->post($url_api, $nuevo_tercero);
+
+            $statusCode = $response->status();
+
+            if ($statusCode == 200) {
+                // Tercero creado exitosamente
+                return response()->json(['message' => 'Tercero creado exitosamente'], $statusCode);
+            } else {
+                // Error al crear el tercero
+                return response()->json(['message' => 'Error al crear el tercero', 'status_code' => $statusCode]);
+            }
+        } catch (\Exception $e) {
+            // Capturar excepciones
+            return response()->json(['message' => 'Error al crear el tercero: ' . $e->getMessage()]);
+        }
     }
 }

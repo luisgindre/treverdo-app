@@ -22,6 +22,11 @@ use Filament\Forms\Components\Split;
 use Filament\Forms\Components\Fieldset;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Actions;
+use Filament\Support\Enums\IconPosition;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\IconColumn;
 
 
 class UserResource extends Resource
@@ -91,7 +96,10 @@ class UserResource extends Resource
                         Select::make('module_id')
                             ->label('Módulo')
                                 ->relationship(name: 'modules', titleAttribute: 'name')
-                                ->preload(), 
+                                ->preload(),
+                        FileUpload::make('profile_photo_path')
+                            ->image()
+                            ->avatar(),
                     ])->grow(false),
                 ])->columnSpan(2),
             ])->columns(2);
@@ -101,54 +109,77 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('fullName')
+                ImageColumn::make('profile_photo_path')
+                    ->label('Avatar')
+                    ->circular()
+                    ->defaultImageUrl(asset('/img/user-profile.png')),
+                TextColumn::make('fullName')
                     ->label('Apellido y Nombre')
                     ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
+                    ->searchable(['name','last_name']),
+                TextColumn::make('email')
                     ->label('Email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cell_phone')
-                    ->label('Celular')
+                    ->icon('heroicon-m-envelope')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('primary')
+                    ->copyable()
+                    ->copyMessage('Email copiado')
+                    ->copyMessageDuration(1500),
+                TextColumn::make('cell_phone')
+                    ->label('Movil')
+                    ->placeholder('Sin dato') 
+                    ->icon('heroicon-o-device-phone-mobile')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('#432')
+                    ->copyable()
+                    ->copyMessage('Teléfono copiado')
+                    ->copyMessageDuration(1500)
+                    ->placeholder('Sin dato'),
+                TextColumn::make('work_phone')
+                    ->label('Telefono (Empresa)')
                     ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('company.name')
+                    ->placeholder('Sin dato')
+                    ->icon('heroicon-c-phone')
+                    ->iconPosition(IconPosition::Before)
+                    ->iconColor('gray')
+                    ->copyable()
+                    ->copyMessage('Teléfono copiado')
+                    ->copyMessageDuration(1500),
+                TextColumn::make('work_mail')
+                    ->label('Email (Empresa)')
+                    ->placeholder('Sin dato')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('company.name')
                     ->label('Empresa')
                     ->placeholder('Sin dato')
                     ->sortable()
                     ->badge(),
-                Tables\Columns\TextColumn::make('company_position')
+                TextColumn::make('company_position')
                     ->label('Cargo')
                     ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('work_phone')
-                    ->label('Telefono (Empresa)')
-                    ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('work_mail')
-                    ->label('Email (Empresa)')
-                    ->placeholder('Sin dato')
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('enabled')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                IconColumn::make('enabled')
                     ->label('Estado')
                     ->placeholder('Sin dato')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('user.fullName')
+                TextColumn::make('user.fullName')
                     ->label('Usuario Creador')
                     ->placeholder('Sin dato')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('last_update_user_id')
+                TextColumn::make('last_update_user_id')
                     ->label('Última Modificación')
                     ->placeholder('Sin dato')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->label('Fecha Creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->label('Fecha Actualización')
                     ->dateTime()
                     ->sortable()
